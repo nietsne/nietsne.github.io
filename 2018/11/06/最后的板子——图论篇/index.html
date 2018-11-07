@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="记录生活点滴">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Enstein">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="最后的板子——图论篇">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="记录生活点滴">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Einstein&#39;Blog">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>最后的板子——图论篇 - Einstein&#39;Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-128896598-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/friends">
+                    Friends
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-xing" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/11/06/最后的板子——图论篇/">
+                最后的板子——图论篇
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-11-06</span>
+            
+            
+                <a href="#disqus_thread" class="comments">留言</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><h3 id="这个是图论模板。"><a href="#这个是图论模板。" class="headerlink" title="这个是图论模板。"></a>这个是图论模板。</h3><a id="more"></a>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h3 id="全文默认链式前向星存图"><a href="#全文默认链式前向星存图" class="headerlink" title="全文默认链式前向星存图"></a>全文默认链式前向星存图</h3><h2 id="1-并查集："><a href="#1-并查集：" class="headerlink" title="$1.$ 并查集："></a>$1.$ 并查集：</h2><h3 id="1-1-查找祖先：-非路径压缩"><a href="#1-1-查找祖先：-非路径压缩" class="headerlink" title="$1.1$ 查找祖先：(非路径压缩)"></a>$1.1$ 查找祖先：(非路径压缩)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(fa[k]==k) <span class="keyword">return</span> k;</span><br><span class="line">    <span class="keyword">return</span> find(fa[k])；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-查找祖先：-路径压缩"><a href="#1-2-查找祖先：-路径压缩" class="headerlink" title="$1.2$ 查找祖先：(路径压缩)"></a>$1.2$ 查找祖先：(路径压缩)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(fa[k]==k) <span class="keyword">return</span> k;</span><br><span class="line">    <span class="keyword">return</span> fa[k]=find(fa[k]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-合并："><a href="#1-3-合并：" class="headerlink" title="$1.3$ 合并："></a>$1.3$ 合并：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> fa_a=find(a);</span><br><span class="line">    <span class="keyword">int</span> fa_b=find(b);</span><br><span class="line">    <span class="keyword">if</span>(fa_a!=fa_b) fa[fa_a]=fa_b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-拓扑排序："><a href="#2-拓扑排序：" class="headerlink" title="$2.$ 拓扑排序："></a>$2.$ 拓扑排序：</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">topsort</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt;q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="keyword">if</span>(!indegree[i]) q.push(i);</span><br><span class="line">    <span class="keyword">while</span>(q.size())&#123;</span><br><span class="line">        <span class="keyword">int</span> u=q.front();q.pop();</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;u&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=head[u];i;i=t[i].nex)&#123;</span><br><span class="line">            <span class="keyword">int</span> v=t[i].to;</span><br><span class="line">            indegree[v]--;</span><br><span class="line">            .......</span><br><span class="line">            <span class="keyword">if</span>(!indegree[v]) q.push(v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-LCA-：-最近公共祖先"><a href="#3-LCA-：-最近公共祖先" class="headerlink" title="$3.$ $LCA$：(最近公共祖先)"></a>$3.$ $LCA$：(最近公共祖先)</h2><h3 id="3-1-倍增："><a href="#3-1-倍增：" class="headerlink" title="$3.1$ 倍增："></a>$3.1$ 倍增：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> f,<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">    deep[u]=deep[f]+<span class="number">1</span>;</span><br><span class="line">    ff[u][<span class="number">0</span>]=f;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;(<span class="number">1</span>&lt;&lt;i)&lt;=deep[u];i++)&#123;</span><br><span class="line">        ff[u][i]=ff[ff[u][i<span class="number">-1</span>]][i<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[u];i;t[i].nex)&#123;</span><br><span class="line">        <span class="keyword">if</span>(t[i].to!=f) dfs(t[i].to,u,t[i].val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lca</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(deep[a]&gt;deep[b]) swap(a,b);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">20</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(deep[ff[b][i]]&gt;=deep[a])&#123;</span><br><span class="line">            b=ff[b][i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(a==b) <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">20</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(ff[a][i]==ff[b][i]||(<span class="number">1</span>&lt;&lt;i)&gt;deep[a]) <span class="keyword">continue</span>;</span><br><span class="line">        a=ff[a][i];</span><br><span class="line">        b=ff[b][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ff[a][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-Tarjan-：-dfs-并查集-离线求解"><a href="#3-2-Tarjan-：-dfs-并查集-离线求解" class="headerlink" title="$3.2$ $Tarjan$：( $dfs$ + 并查集 离线求解)"></a>$3.2$ $Tarjan$：( $dfs$ + 并查集 <font color="#ff0000">离线求解</font>)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(fa[x]==x) <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">return</span> fa[x]=find(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    vis[s]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[s];i;i=t[i].nex)&#123;</span><br><span class="line">        <span class="keyword">int</span> v=t[i].to;</span><br><span class="line">        <span class="keyword">if</span>(vis[v]) <span class="keyword">continue</span>;</span><br><span class="line">        dfs(v);</span><br><span class="line">        fa[v]=s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=kk;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> u=ques[i].a,v=ques[i].b;</span><br><span class="line">        <span class="keyword">if</span>(vis[u]==<span class="number">2</span>) ans[v]=find(u);</span><br><span class="line">    &#125;</span><br><span class="line">    vis[u]=<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-树链剖分："><a href="#3-3-树链剖分：" class="headerlink" title="$3.3$ 树链剖分："></a>$3.3$ 树链剖分：</h3><p>算了。</p>
+<h2 id="4-Tarjan-："><a href="#4-Tarjan-：" class="headerlink" title="$4.$ $Tarjan$："></a>$4.$ $Tarjan$：</h2><h3 id="4-1-有向图的强连通分量：-缩点"><a href="#4-1-有向图的强连通分量：-缩点" class="headerlink" title="$4.1$ 有向图的强连通分量：(缩点)"></a>$4.1$ 有向图的强连通分量：(缩点)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt;q;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	dfs[u]=low[u]=++cnt;</span><br><span class="line">    vis[u]=<span class="number">1</span>;</span><br><span class="line">    q.push(u);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[u];i;i=t[i].nex)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!dfs[u])&#123;</span><br><span class="line">            tarjan(t[i].to);</span><br><span class="line">            low[u]=min(low[u],low[t[i].to]);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(vis[u]) low[u]=min(low[u],low[t[i].to]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(low[u]==dfs[u])&#123;</span><br><span class="line">        <span class="keyword">int</span> v=q.front();</span><br><span class="line">        ans++;</span><br><span class="line">       	scc[++k]=v;</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">while</span>(v!=u)&#123;</span><br><span class="line">            v=q.front();</span><br><span class="line">        	ans++;</span><br><span class="line">       		scc[++k]=v;</span><br><span class="line">        	q.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-无向图的割点："><a href="#4-2-无向图的割点：" class="headerlink" title="$4.2$ 无向图的割点："></a>$4.2$ 无向图的割点：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">()</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-无向图的割边："><a href="#4-3-无向图的割边：" class="headerlink" title="$4.3$ 无向图的割边："></a>$4.3$ 无向图的割边：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">()</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-欧拉路径："><a href="#5-欧拉路径：" class="headerlink" title="$5.$ 欧拉路径："></a>$5.$ 欧拉路径：</h2><h3 id="5-1-判断欧拉回路：-dfs"><a href="#5-1-判断欧拉回路：-dfs" class="headerlink" title="$5.1$  判断欧拉回路：( $dfs$ )"></a>$5.1$  判断欧拉回路：( $dfs$ )</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;</span><br><span class="line">	iin[a]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head[a];i!=<span class="number">0</span>;i=c[i].next)&#123;</span><br><span class="line">		<span class="keyword">if</span>(iin[c[i].to]==<span class="number">0</span>) dfs(c[i].to);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    dfs(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(iin[i]==<span class="number">0</span>||sum[i]%<span class="number">2</span>==<span class="number">1</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"0"</span>);</span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"1"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-判断欧拉回路：-并查集"><a href="#5-2-判断欧拉回路：-并查集" class="headerlink" title="$5.2$ 判断欧拉回路：(并查集)"></a>$5.2$ 判断欧拉回路：(并查集)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x==fa[x])  <span class="keyword">return</span> x;</span><br><span class="line">	<span class="keyword">return</span> fa[x]=find(fa[x]); </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> fax=find(x);</span><br><span class="line">	<span class="keyword">int</span> fay=find(y);</span><br><span class="line">	<span class="keyword">if</span>(fax!=fay)&#123;</span><br><span class="line">		fa[x]=y;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    add(x,y);</span><br><span class="line">    ......</span><br><span class="line">    <span class="keyword">int</span> a1=<span class="number">0</span>,a2=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(sum[i]%<span class="number">2</span>==<span class="number">1</span>) a1++;</span><br><span class="line">		<span class="keyword">if</span>(fa[i]==i) a2++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(a1==<span class="number">0</span>&amp;&amp;a2==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"1"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"0"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-3-求欧拉回路：-dfs-，用栈模拟"><a href="#5-3-求欧拉回路：-dfs-，用栈模拟" class="headerlink" title="$5.3$ 求欧拉回路：( $dfs$ ，用栈模拟)"></a>$5.3$ 求欧拉回路：( $dfs$ ，用栈模拟)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">euler</span><span class="params">()</span></span>&#123;</span><br><span class="line">    sta[++top]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(top)&#123;</span><br><span class="line">        <span class="keyword">int</span> x=sta[top],i=head[x];</span><br><span class="line">        <span class="keyword">while</span>(i&amp;&amp;vis[i]) i=t[i].nex;</span><br><span class="line">        <span class="keyword">if</span>(i)&#123;</span><br><span class="line">            sta[++top]=t[i].to;</span><br><span class="line">            vis[i]=vis[i^<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">            head[x]=t[i].nex;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            top--;</span><br><span class="line">            ans[++w]=x;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-4-求欧拉回路：-Fleury"><a href="#5-4-求欧拉回路：-Fleury" class="headerlink" title="$5.4$ 求欧拉回路：( $Fleury$ )"></a>$5.4$ 求欧拉回路：( $Fleury$ )</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="6-最短路："><a href="#6-最短路：" class="headerlink" title="$6.$ 最短路："></a>$6.$ 最短路：</h2><h3 id="6-1-多源最短路：-只能用邻接矩阵存图"><a href="#6-1-多源最短路：-只能用邻接矩阵存图" class="headerlink" title="$6.1$ 多源最短路：(只能用邻接矩阵存图)"></a>$6.1$ 多源最短路：(只能用邻接矩阵存图)</h3> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>; k&lt;=n; k++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=n; j++)</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">map</span>[i][k]+<span class="built_in">map</span>[k][j]&lt;<span class="built_in">map</span>[i][j])</span><br><span class="line">                <span class="built_in">map</span>[i][j]=<span class="built_in">map</span>[i][k]+<span class="built_in">map</span>[k][j];</span><br></pre></td></tr></table></figure>
+<h3 id="6-3-单源最短路：-dijkstra"><a href="#6-3-单源最短路：-dijkstra" class="headerlink" title="$6.3$ 单源最短路：( $dijkstra$ )"></a>$6.3$ 单源最短路：( $dijkstra$ )</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dij</span><span class="params">()</span></span>&#123;</span><br><span class="line">	priority_queue&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;q;</span><br><span class="line">	<span class="built_in">memset</span>(dis,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(dis));</span><br><span class="line">	dis[s]=<span class="number">0</span>;</span><br><span class="line">	q.push(make_pair(<span class="number">0</span>,s));</span><br><span class="line">	<span class="keyword">while</span>(q.size())&#123;</span><br><span class="line">		<span class="keyword">int</span> u=q.top().second;</span><br><span class="line">		q.pop();</span><br><span class="line">		<span class="keyword">if</span>(vis[u]) <span class="keyword">continue</span>;</span><br><span class="line">		vis[u]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=head[u];i;i=t[i].nex)&#123;</span><br><span class="line">			<span class="keyword">int</span> v=t[i].to;</span><br><span class="line">			<span class="keyword">if</span>(dis[v]&gt;dis[u]+t[i].val)&#123;</span><br><span class="line">				dis[v]=dis[u]+t[i].val;</span><br><span class="line">				q.push(make_pair(-dis[v],v));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-4-单源最短路：-spfa"><a href="#6-4-单源最短路：-spfa" class="headerlink" title="$6.4$ 单源最短路：( $spfa$ )"></a>$6.4$ 单源最短路：( $spfa$ )</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spfa</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt;aa;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		dis[i]=inf;</span><br><span class="line">		vis[i]=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	aa.push(s),vis[s]=<span class="number">1</span>,dis[s]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(aa.size())&#123;</span><br><span class="line">		<span class="keyword">int</span> cc=aa.front();aa.pop();</span><br><span class="line">		vis[cc]=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=head[cc];i;i=a[i].next)&#123;</span><br><span class="line">			<span class="keyword">int</span> xx=a[i].to;</span><br><span class="line">			<span class="keyword">if</span>(dis[xx]&gt;dis[cc]+a[i].val)&#123;</span><br><span class="line">				dis[xx]=dis[cc]+a[i].val;</span><br><span class="line">				<span class="keyword">if</span>(vis[xx]==<span class="number">0</span>)&#123;</span><br><span class="line">					vis[xx]=<span class="number">1</span>;</span><br><span class="line">					aa.push(xx);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-5-判负环：-spfa"><a href="#6-5-判负环：-spfa" class="headerlink" title="$6.5$ 判负环：( $spfa$ )"></a>$6.5$ 判负环：( $spfa$ )</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果要求a到b的最短路，先加入a，然后再判断是否到达b，用结构体存点和距离</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">spfa</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) vis[i]=<span class="number">0</span>,dis[i]=<span class="number">0x7f7f7f7f</span>;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt;q;</span><br><span class="line">	q.push(<span class="number">1</span>);</span><br><span class="line">	vis[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">	dis[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(q.size())&#123;</span><br><span class="line">		<span class="keyword">int</span> u=q.front();q.pop();</span><br><span class="line">		vis[u]=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(sum[u]&gt;=n) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=head[u];i;i=t[i].nex)&#123;</span><br><span class="line">			<span class="keyword">int</span> v=t[i].to;</span><br><span class="line">			<span class="keyword">if</span>(dis[v]&gt;dis[u]+t[i].val)&#123;</span><br><span class="line">				dis[v]=dis[u]+t[i].val;</span><br><span class="line">				sum[v]=sum[u]+<span class="number">1</span>;</span><br><span class="line">				<span class="keyword">if</span>(sum[v]&gt;=n) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">if</span>(vis[v]==<span class="number">0</span>)&#123;</span><br><span class="line">					q.push(v);</span><br><span class="line">					vis[v]=<span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="7-最小生成树："><a href="#7-最小生成树：" class="headerlink" title="$7.$ 最小生成树："></a>$7.$ 最小生成树：</h2><h3 id="7-1-Kruskal-："><a href="#7-1-Kruskal-：" class="headerlink" title="$7.1$ $Kruskal$："></a>$7.1$ $Kruskal$：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(dwa a,dwa b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.val&lt;b.val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> Kruskal&#123;</span><br><span class="line">    sort(t+<span class="number">1</span>,t+m+<span class="number">1</span>,cmp);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) fa[i]=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> fa_a=find(t[i].a);</span><br><span class="line">        <span class="keyword">int</span> fa_b=find(t[i].b);</span><br><span class="line">        <span class="keyword">if</span>(fa_a==fa_b) <span class="keyword">continue</span>;</span><br><span class="line">        fa[fa_a]=fa_b;</span><br><span class="line">        ans+=t[i].val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-2-Prime-："><a href="#7-2-Prime-：" class="headerlink" title="$7.2$ $Prime$："></a>$7.2$ $Prime$：</h3><p>算了。</p>
+<h2 id="8-二分图："><a href="#8-二分图：" class="headerlink" title="$8.$ 二分图："></a>$8.$ 二分图：</h2><h3 id="8-1-判断二分图："><a href="#8-1-判断二分图：" class="headerlink" title="$8.1$ 判断二分图："></a>$8.1$ 判断二分图：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    color[u]=k;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[u];i;i=t[i].nex)&#123;</span><br><span class="line">        <span class="keyword">if</span>(color[t[i].to]==k) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(color[t[i].to]==<span class="number">0</span>&amp;&amp;!dfs(t[i].to,-k)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">judge</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!color[i])&#123;</span><br><span class="line">            <span class="keyword">if</span>(!dfs(i,<span class="number">1</span>))&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"NO"</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"YES"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="8-2-二分图最大匹配：-假设是二分图，匈牙利算法"><a href="#8-2-二分图最大匹配：-假设是二分图，匈牙利算法" class="headerlink" title="$8.2$ 二分图最大匹配：(假设是二分图，匈牙利算法)"></a>$8.2$ 二分图最大匹配：(假设是二分图，匈牙利算法)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[u];i;i=t[i].nex)&#123;</span><br><span class="line">        <span class="keyword">int</span> v=t[i].to;</span><br><span class="line">        <span class="keyword">if</span>(!vis[v])&#123;</span><br><span class="line">            vis[v]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(!match[v]||dfs(match[v]))&#123;</span><br><span class="line">               	match[v]=u;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">        <span class="keyword">if</span>(dfs(i))&#123;</span><br><span class="line">            ans++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="后言"><a href="#后言" class="headerlink" title="后言"></a>后言</h1><h3 id="完结散花ヾ-≧▽≦-o。"><a href="#完结散花ヾ-≧▽≦-o。" class="headerlink" title="完结散花ヾ(≧▽≦*)o。"></a>完结散花ヾ(≧▽≦*)o。</h3>
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/模板/">#模板</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    All the teenagers have dreams in China,unite!
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/06/07/欢迎来到我的博客/">欢迎来到我的博客</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/11/AFO感言/">AFO感言</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/08/hello-world/">Hello World</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/07/最后的板子——基础篇/">最后的板子——基础篇</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:enstein.ei@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                     CC0 To the extent possible under law, Enstein has waived all copyright and related or neighboring rights to Enstein'Blog. This work is published from: China 
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'enstein';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+
+</html>

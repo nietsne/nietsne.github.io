@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="记录生活点滴">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Enstein">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="【CERC 2015】ASCII Addition 题解---理性分析暴力">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="记录生活点滴">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Einstein&#39;Blog">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>【CERC 2015】ASCII Addition 题解---理性分析暴力 - Einstein&#39;Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-128896598-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/friends">
+                    Friends
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-xing" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/10/14/【CERC-2015】ASCII-Addition-题解-理性分析暴力/">
+                【CERC 2015】ASCII Addition 题解---理性分析暴力
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-10-14</span>
+            
+            
+                <a href="#disqus_thread" class="comments">留言</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h4 id="首先，别被难度-截止写题解前还是黑题-吓到了，仔细分析，你会发现这其实是一道简单字符串水题。"><a href="#首先，别被难度-截止写题解前还是黑题-吓到了，仔细分析，你会发现这其实是一道简单字符串水题。" class="headerlink" title="首先，别被难度(截止写题解前还是黑题)吓到了，仔细分析，你会发现这其实是一道简单字符串水题。"></a>首先，别被难度(截止写题解前还是黑题)吓到了，仔细分析，你会发现这其实是一道简单字符串水题。</h4><a id="more"></a>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><h4 id="先分析一波题目，一个简单的加法，但是加数、被加数与加号用字符串表示。"><a href="#先分析一波题目，一个简单的加法，但是加数、被加数与加号用字符串表示。" class="headerlink" title="先分析一波题目，一个简单的加法，但是加数、被加数与加号用字符串表示。"></a>先分析一波题目，一个简单的加法，但是加数、被加数与加号用字符串表示。</h4><h4 id="你首先要明白，只有先转换为数字才能加，所以你需要识别这三个东西，因此先开个字符串数组表示数字-0-9-和-，这里我考虑的是用-c-的-string-数组来存储-将样例复制粘贴就可以了，下面都用-string-数组-，就有："><a href="#你首先要明白，只有先转换为数字才能加，所以你需要识别这三个东西，因此先开个字符串数组表示数字-0-9-和-，这里我考虑的是用-c-的-string-数组来存储-将样例复制粘贴就可以了，下面都用-string-数组-，就有：" class="headerlink" title="你首先要明白，只有先转换为数字才能加，所以你需要识别这三个东西，因此先开个字符串数组表示数字 $0$ ~ $9$ 和 $+$，这里我考虑的是用$c^{++}$的 $string$ 数组来存储(将样例复制粘贴就可以了，下面都用 $string$ 数组)，就有："></a>你首先要明白，只有先转换为数字才能加，所以你需要识别这三个东西，因此先开个字符串数组表示数字 $0$ ~ $9$ 和 $+$，这里我考虑的是用$c^{++}$的 $string$ 数组来存储(将样例复制粘贴就可以了，下面都用 $string$ 数组)，就有：</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> shu[<span class="number">15</span>]=&#123;</span><br><span class="line"><span class="string">"xxxxxx...xx...xx...xx...xx...xxxxxx"</span>,		<span class="comment">//0</span></span><br><span class="line"><span class="string">"....x....x....x....x....x....x....x"</span>,		<span class="comment">//1</span></span><br><span class="line"><span class="string">"xxxxx....x....xxxxxxx....x....xxxxx"</span>,		<span class="comment">//2		</span></span><br><span class="line"><span class="string">"xxxxx....x....xxxxxx....x....xxxxxx"</span>,		<span class="comment">//3			</span></span><br><span class="line"><span class="string">"x...xx...xx...xxxxxx....x....x....x"</span>,		<span class="comment">//4</span></span><br><span class="line"><span class="string">"xxxxxx....x....xxxxx....x....xxxxxx"</span>,		<span class="comment">//5</span></span><br><span class="line"><span class="string">"xxxxxx....x....xxxxxx...xx...xxxxxx"</span>,		<span class="comment">//6</span></span><br><span class="line"><span class="string">"xxxxx....x....x....x....x....x....x"</span>,		<span class="comment">//7</span></span><br><span class="line"><span class="string">"xxxxxx...xx...xxxxxxx...xx...xxxxxx"</span>,		<span class="comment">//8</span></span><br><span class="line"><span class="string">"xxxxxx...xx...xxxxxx....x....xxxxxx"</span>,		<span class="comment">//9</span></span><br><span class="line"><span class="string">".......x....x..xxxxx..x....x......."</span>		 <span class="comment">//+</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="然后就是读入：-也简单，总共有-7-行，循环一下就可以了"><a href="#然后就是读入：-也简单，总共有-7-行，循环一下就可以了" class="headerlink" title="然后就是读入：(也简单，总共有 $7$ 行，循环一下就可以了)"></a>然后就是读入：(也简单，总共有 $7$ 行，循环一下就可以了)</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">7</span>;i++) <span class="built_in">cin</span>&gt;&gt;ss[i];		<span class="comment">//这个ss是string数组</span></span><br></pre></td></tr></table></figure>
+<h4 id="下面是转换：-这里注意每个数字-或加号与数字-的中间都有一排点"><a href="#下面是转换：-这里注意每个数字-或加号与数字-的中间都有一排点" class="headerlink" title="下面是转换：(这里注意每个数字(或加号与数字)的中间都有一排点)"></a>下面是转换：(这里注意每个数字(或加号与数字)的中间都有一排点)</h4><h5 id="①下面这个是将输出转换为上面那个数组一样的形式-我开了个-string-数组-a-。"><a href="#①下面这个是将输出转换为上面那个数组一样的形式-我开了个-string-数组-a-。" class="headerlink" title="①下面这个是将输出转换为上面那个数组一样的形式(我开了个 $string$ 数组 $a$)。"></a>①下面这个是将输出转换为上面那个数组一样的形式(我开了个 $string$ 数组 $a$)。</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ci=<span class="number">0</span>;									   <span class="comment">//ci表示第几组字符                                   </span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">7</span>;i++)&#123;</span><br><span class="line">	ci=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> kkk=ss[i].length();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;kkk;j+=<span class="number">6</span>)&#123;                    <span class="comment">//j+=6表示每隔六位转换，可以处理那个点</span></span><br><span class="line">		ci++; 								  <span class="comment">//因为是五个字符一组，这里要++</span></span><br><span class="line">		a[ci].sa+=ss[i].substr(j,<span class="number">5</span>);   		 <span class="comment">//调用substr函数截取字符，j是其实位置，5是长度，string类型可以+=拼接</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="可能上面没怎么说清，下面举个例子："><a href="#可能上面没怎么说清，下面举个例子：" class="headerlink" title="可能上面没怎么说清，下面举个例子："></a>可能上面没怎么说清，下面举个例子：</h5><p><img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1fw7uyxhdqej30tc06n74t.jpg" alt=""></p>
+<h5 id="上图用红线覆盖的是一排点，红线将其分为-11-组字符"><a href="#上图用红线覆盖的是一排点，红线将其分为-11-组字符" class="headerlink" title="上图用红线覆盖的是一排点，红线将其分为 $11$ 组字符"></a>上图用红线覆盖的是一排点，红线将其分为 $11$ 组字符</h5><h5 id="②下面这个是字符匹配数字或加号："><a href="#②下面这个是字符匹配数字或加号：" class="headerlink" title="②下面这个是字符匹配数字或加号："></a>②下面这个是字符匹配数字或加号：</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=ci;i++)&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">11</span>;j++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(shu[j]==a[i])&#123;                 <span class="comment">//string判断相等</span></span><br><span class="line">			a1[++k1]=j;                   <span class="comment">//将对应的数字存到数组中(这里也可以直接算出加数与被加数，只要找到加号即可)</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="③下面是算出加数与被加数：-注意加号的位置"><a href="#③下面是算出加数与被加数：-注意加号的位置" class="headerlink" title="③下面是算出加数与被加数：(注意加号的位置)"></a>③下面是算出加数与被加数：(注意加号的位置)</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> flag=<span class="number">0</span>;                              		<span class="comment">//开标记，flag=0表示为加数，flag=1表示为被加数。</span></span><br><span class="line"><span class="keyword">int</span> ans1=<span class="number">0</span>,ans2=<span class="number">0</span>;                       		<span class="comment">//存储加数与被加数</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k1;i++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(a1[i]==<span class="number">10</span>) flag=<span class="number">1</span>;                		<span class="comment">//这里用10表示加号</span></span><br><span class="line">	<span class="keyword">if</span>(a1[i]!=<span class="number">10</span>&amp;&amp;flag==<span class="number">0</span>) ans1=ans1*<span class="number">10</span>+a1[i];   <span class="comment">//算加数</span></span><br><span class="line">	<span class="keyword">if</span>(flag==<span class="number">1</span>&amp;&amp;a1[i]!=<span class="number">10</span>) ans2=ans2*<span class="number">10</span>+a1[i];   <span class="comment">//算被加数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="最后是输出：-也要注意那一排点"><a href="#最后是输出：-也要注意那一排点" class="headerlink" title="最后是输出：(也要注意那一排点)"></a>最后是输出：(也要注意那一排点)</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(k)&#123;                                   <span class="comment">//k为ans1+ans2</span></span><br><span class="line">	a4[++k4]=k%<span class="number">10</span>;                          <span class="comment">//依次存每一位</span></span><br><span class="line">	k/=<span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> ci[<span class="number">80</span>]=&#123;<span class="number">0</span>&#125;;                             <span class="comment">//这个就类似与上面的转换，表示第几组字符的第几个字符</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">7</span>;i++)&#123;                          </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=k4;j&gt;=<span class="number">1</span>;j--)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k=ci[j];k&lt;ci[j]+<span class="number">5</span>;k++) <span class="built_in">printf</span>(<span class="string">"%c"</span>,shu[a4[j]][k]);	<span class="comment">//一组为5个</span></span><br><span class="line">		<span class="keyword">if</span>(j!=<span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"."</span>);               <span class="comment">//注意最后一组后面没有点</span></span><br><span class="line">		ci[j]+=<span class="number">5</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>ps:下面是我丑陋的代码(注意数组的范围，我的是随便写的)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">string</span> shu[<span class="number">15</span>]=&#123;</span><br><span class="line"><span class="string">"xxxxxx...xx...xx...xx...xx...xxxxxx"</span>,</span><br><span class="line"><span class="string">"....x....x....x....x....x....x....x"</span>,</span><br><span class="line"><span class="string">"xxxxx....x....xxxxxxx....x....xxxxx"</span>,</span><br><span class="line"><span class="string">"xxxxx....x....xxxxxx....x....xxxxxx"</span>,</span><br><span class="line"><span class="string">"x...xx...xx...xxxxxx....x....x....x"</span>,</span><br><span class="line"><span class="string">"xxxxxx....x....xxxxx....x....xxxxxx"</span>,</span><br><span class="line"><span class="string">"xxxxxx....x....xxxxxx...xx...xxxxxx"</span>,</span><br><span class="line"><span class="string">"xxxxx....x....x....x....x....x....x"</span>,</span><br><span class="line"><span class="string">"xxxxxx...xx...xxxxxxx...xx...xxxxxx"</span>,</span><br><span class="line"><span class="string">"xxxxxx...xx...xxxxxx....x....xxxxxx"</span>,</span><br><span class="line"><span class="string">".......x....x..xxxxx..x....x......."</span>&#125;;</span><br><span class="line"><span class="built_in">string</span> ss[<span class="number">800</span>];</span><br><span class="line"><span class="keyword">int</span> a1[<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;,a2[<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;,a3[<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;,a4[<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> k1=<span class="number">0</span>,k2=<span class="number">0</span>,k3=<span class="number">0</span>,k4=<span class="number">0</span>;</span><br><span class="line"><span class="built_in">string</span> a[<span class="number">1000</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">7</span>;i++) <span class="built_in">cin</span>&gt;&gt;ss[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(k)&#123;</span><br><span class="line">		a4[++k4]=k%<span class="number">10</span>;</span><br><span class="line">		k/=<span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> ci[<span class="number">80</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">7</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=k4;j&gt;=<span class="number">1</span>;j--)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> k=ci[j];k&lt;ci[j]+<span class="number">5</span>;k++)&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%c"</span>,shu[a4[j]][k]);</span><br><span class="line">				</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(j!=<span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"."</span>);</span><br><span class="line">			ci[j]+=<span class="number">5</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ci=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">7</span>;i++)&#123;</span><br><span class="line">		ci=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> kkk=ss[i].length();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;kkk;j+=<span class="number">6</span>)&#123;</span><br><span class="line">			ci++;</span><br><span class="line">			a[ci]+=ss[i].substr(j,<span class="number">5</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=ci;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">11</span>;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(shu[j]==a[i])&#123;</span><br><span class="line">				a1[++k1]=j;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> flag=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> ans1=<span class="number">0</span>,ans2=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k1;i++)&#123;</span><br><span class="line">    	<span class="keyword">if</span>(a1[i]==<span class="number">10</span>) flag=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(a1[i]!=<span class="number">10</span>&amp;&amp;flag==<span class="number">0</span>) ans1=ans1*<span class="number">10</span>+a1[i];</span><br><span class="line">		<span class="keyword">if</span>(flag==<span class="number">1</span>&amp;&amp;a1[i]!=<span class="number">10</span>) ans2=ans2*<span class="number">10</span>+a1[i];</span><br><span class="line">	&#125;</span><br><span class="line">	print(ans1+ans2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	read();</span><br><span class="line">	change();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="解题反思"><a href="#解题反思" class="headerlink" title="解题反思"></a>解题反思</h1><h4 id="这其实就是暴力，但是要注意一些细节，以理性的角度分析并实现暴力，只是这道题只有两个数字相加，不然可能更难实现，string-大法好。"><a href="#这其实就是暴力，但是要注意一些细节，以理性的角度分析并实现暴力，只是这道题只有两个数字相加，不然可能更难实现，string-大法好。" class="headerlink" title="这其实就是暴力，但是要注意一些细节，以理性的角度分析并实现暴力，只是这道题只有两个数字相加，不然可能更难实现，string 大法好。"></a>这其实就是暴力，但是要注意一些细节，以理性的角度分析并实现暴力，只是这道题只有两个数字相加，不然可能更难实现，<del>string 大法好</del>。</h4>
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/字符串/">#字符串</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    All the teenagers have dreams in China,unite!
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/06/07/欢迎来到我的博客/">欢迎来到我的博客</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/11/AFO感言/">AFO感言</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/08/hello-world/">Hello World</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/07/最后的板子——基础篇/">最后的板子——基础篇</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:enstein.ei@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                     CC0 To the extent possible under law, Enstein has waived all copyright and related or neighboring rights to Enstein'Blog. This work is published from: China 
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'enstein';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+
+</html>
