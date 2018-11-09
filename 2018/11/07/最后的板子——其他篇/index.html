@@ -391,6 +391,18 @@
 </tr>
 </tbody>
 </table>
+<h2 id="2-玄学防-long-long-相乘溢出："><a href="#2-玄学防-long-long-相乘溢出：" class="headerlink" title="$2.$ 玄学防 $long$ $long$ 相乘溢出："></a>$2.$ 玄学防 $long$ $long$ 相乘溢出：</h2><h3 id="2-1-快速乘：-又名慢速乘，类似快速幂"><a href="#2-1-快速乘：-又名慢速乘，类似快速幂" class="headerlink" title="$2.1$ 快速乘：(又名慢速乘，类似快速幂)"></a>$2.1$ 快速乘：(又名慢速乘，类似快速幂)</h3><p>详见快速幂，将乘改为加。</p>
+<h3 id="2-2-骚操作："><a href="#2-2-骚操作：" class="headerlink" title="$2.2$ 骚操作："></a>$2.2$ 骚操作：</h3><p>实测可用，原理是利用溢出再用 $long$ $double$ 估计溢出次数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">mul</span><span class="params">(ll a,ll b)</span></span>&#123;</span><br><span class="line">    a%=mod,b%=mod;</span><br><span class="line">    <span class="keyword">return</span> (a*b-(ll)((<span class="keyword">long</span> <span class="keyword">double</span>)a/mod*b+<span class="number">0.5</span>)*mod+mod)%mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-STL-容器："><a href="#3-STL-容器：" class="headerlink" title="$3.$ $STL$ 容器："></a>$3.$ $STL$ 容器：</h2><h3 id="3-1-vector-："><a href="#3-1-vector-：" class="headerlink" title="$3.1$ $vector$："></a>$3.1$ $vector$：</h3><ul>
+<li>可以开迭代器遍历</li>
+<li>可以使用方括号运算符</li>
+<li>可以使用其他操作：<code>push_back()</code> <code>size()</code> <code>pop_back()</code> <code>clear()</code> <code>insert()</code> <code>erase()</code> <code>find()二分查找</code>……</li>
+</ul>
+<h3 id="3-2-stack-："><a href="#3-2-stack-：" class="headerlink" title="$3.2$ $stack$："></a>$3.2$ $stack$：</h3><ul>
+<li>先入后出，后入先出</li>
+<li>其他操作：<code>push()</code> <code>top()</code> <code>pop()</code> <code>size()</code> ……</li>
+</ul>
 
     </div>
 
