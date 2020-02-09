@@ -168,7 +168,7 @@
 <p>这个可以注意到我们要求的是<strong>在某条直线上的整点的个数</strong>。如果直接模拟肯定会超时，所以可以在暴力的基础上再优化下，<strong>既然求的是整点，可以枚举某一个坐标轴上的整数，由于已知直线的上的两点，所以可以算出直线的解析式，进而求出另一个坐标轴的数字，再判断是否为整数并且是否在这个直线范围内，如果都满足，就累加入答案。</strong><br><strong>这里注意精度问题，如果直接开 $double$ ，可能在除法的时候损失精度(比如 $6/10=0.5999999\cdots$ 而不是 $0.6$ )，这样可以用 $double$ 存除数与被除数，有需要这个商的时候就可以直接带入计算。</strong></p>
 <p>黄 $sir$ 提供了另一种非正解的做法：<a href="http://bubbleioa.top/archives/510" target="_blank" rel="noopener">点击查看</a></p>
 <p>$Lxp$_$Mike$ 同学有正解：<a href="https://lxp20011125.github.io/2018/11/05/2018-11-05%E6%A8%A1%E6%8B%9F%E8%80%83-Day-3/" target="_blank" rel="noopener">点击查看</a></p>
-<h2 id="T2-子集："><a href="#T2-子集：" class="headerlink" title="$T2$ 子集："></a>$T2$ 子集：</h2><p>一句话题意：$\sum_{i=0}^{k}C_{n}^{i}$ $mod$ $m$。</p>
+<h2 id="T2-子集："><a href="#T2-子集：" class="headerlink" title="$T2$ 子集："></a>$T2$ 子集：</h2><p>一句话题意：$\sum<em>{i=0}^{k}C</em>{n}^{i}$ $mod$ $m$。</p>
 <p>先来部分分：</p>
 <ul>
 <li>对于前四个点，数据那么小，但是直接算肯定会 $T$，既然此题要求组合数，所以考虑杨辉三角<del>这个玄学算法</del>。</li>
@@ -239,15 +239,15 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/11/11/AFO感言/">AFO感言</a>
+                <a class="footer-post" href="/2018/11/07/20181107/">20181107</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/11/07/最后的板子——基础篇/">最后的板子——基础篇</a>
+                <a class="footer-post" href="/2018/11/06/20181106/">20181106</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/11/07/最后的板子——动态规划篇/">最后的板子——动态规划篇</a>
+                <a class="footer-post" href="/2018/11/05/20181105/">20181105</a>
             </li>
             
         </ul>
@@ -336,8 +336,7 @@
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

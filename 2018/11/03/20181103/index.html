@@ -168,10 +168,10 @@
 <p>显然，题目给的样例是用脚造的，直接拍好了序给你，但是注意此题<strong>没有强调是有序出现的 $mz$，所以首先你就得先判断谁先出现的，然后才是一般模拟。</strong></p>
 <h2 id="T2-黑红树："><a href="#T2-黑红树：" class="headerlink" title="$T2$ 黑红树："></a>$T2$ 黑红树：</h2><p>只能说，此题 $tql$，假借某数据结构之名，把一道数学题藏那么深。</p>
 <h2 id="T3-藏宝图："><a href="#T3-藏宝图：" class="headerlink" title="$T3$ 藏宝图："></a>$T3$ 藏宝图：</h2><p>想不到最小生成树。</p>
-<p>按照题解的思路——<strong>先假设它是图，跑一边最小生成树，让得出的树边建一张图，如果这时的矩阵数组等于之前的矩阵数组，这就是树了，否则不然。就为什么是最小生成树呢？(我的理解是好像我们只学过最小生成树这一个在图里面) $hzwer$ $say$：“为什么要做最小生成树呢？因为首先距离当前点 $x$ 最近的点 $y$ 肯定是有边直接连接的，因为（反证法）假设有 $z$ 使得 $xz$ 和$yz$ 分别连接，则 $dis[ x ][ z ]+dis[y][z]&lt;=dis[x][y]$，所以应该有 $dis[x][z]&lt;dis[x][y]$ ，与已知条件 $dist[x][y]$ 最小不符所以我们要优先考虑边权小的边，所以直接最小生成树。”</strong></p>
+<p>按照题解的思路———<strong>先假设它是图，跑一边最小生成树，让得出的树边建一张图，如果这时的矩阵数组等于之前的矩阵数组，这就是树了，否则不然。就为什么是最小生成树呢？(我的理解是好像我们只学过最小生成树这一个在图里面) $hzwer$ $say$：“为什么要做最小生成树呢？因为首先距离当前点 $x$ 最近的点 $y$ 肯定是有边直接连接的，因为（反证法）假设有 $z$ 使得 $xz$ 和$yz$ 分别连接，则 $dis[ x ][ z ]+dis[y][z]&lt;=dis[x][y]$，所以应该有 $dis[x][z]&lt;dis[x][y]$ ，与已知条件 $dist[x][y]$ 最小不符所以我们要优先考虑边权小的边，所以直接最小生成树。”</strong></p>
 <p>还有最短路。。。</p>
 <h2 id="T4-天神下凡："><a href="#T4-天神下凡：" class="headerlink" title="$T4$ 天神下凡："></a>$T4$ 天神下凡：</h2><p><del>这个名字挺好</del></p>
-<p>首先，此题貌似是数学$/$图论题，其实看本质——-<strong>线段覆盖</strong>。为什么呢？<strong>介于一个圆，可以将当前的空间分成两块，再来几个圆，还是在原来的基础上分成两块，只有当某几个圆完全遮住一个圆，才会出现三块，又因为是在 $x$ 轴上，就是覆盖 $x$ 轴上的线段，可以完全覆盖，就会有三块的。</strong></p>
+<p>首先，此题貌似是数学$/$图论题，其实看本质———-<strong>线段覆盖</strong>。为什么呢？<strong>介于一个圆，可以将当前的空间分成两块，再来几个圆，还是在原来的基础上分成两块，只有当某几个圆完全遮住一个圆，才会出现三块，又因为是在 $x$ 轴上，就是覆盖 $x$ 轴上的线段，可以完全覆盖，就会有三块的。</strong></p>
 <p>我是用<strong>玄学栈</strong>，还有<strong>建树，搜索以及线段树</strong>。</p>
 
     </div>
@@ -235,15 +235,15 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/11/11/AFO感言/">AFO感言</a>
+                <a class="footer-post" href="/2018/11/07/20181107/">20181107</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/11/07/最后的板子——基础篇/">最后的板子——基础篇</a>
+                <a class="footer-post" href="/2018/11/06/20181106/">20181106</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/11/07/最后的板子——动态规划篇/">最后的板子——动态规划篇</a>
+                <a class="footer-post" href="/2018/11/05/20181105/">20181105</a>
             </li>
             
         </ul>
@@ -332,8 +332,7 @@
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
